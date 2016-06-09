@@ -9,7 +9,19 @@
 Leonardo-example
 ------------------
 CREATE [regname] AT [x, y]
-ADD [number] [trooptype] TO [regname]
-REMOVE [number] [trooptype] FROM [regname]
-TRANSFER [number] [trooptype] FROM [regname] TO [regname2]
-MOVE [regname] TO [x, y]
+CREATE GUNMAN [unitName]
+-||-   SNIPER -||-
+-||-   ARTILLERY -||-
+-||-   MEDIC -||-
+-||-   TANK -||-
+
+ADD [unitName] TO [regname]
+REMOVE [unitName] FROM [regname]
+REMOVE NUMBER [index] OF [unitType] FROM [regname]  
+
+TRANSFER [unitName] FROM [regname1] TO [regname2]
+MOVE [regname] [y] STEPS [NORTH/SOUTH] AND [x] STEPS [EAST/WEST]
+
+GET POSITION FOR [regname]
+GET SIZE OF [regname]
+GET AMOUNT OF [unitType] IN [regname]
