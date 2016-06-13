@@ -30,8 +30,8 @@ GET AMOUNT OF [unitType] IN [regname]
 ------- Query-statements ----
 MOVE ALL REGIMENTS WHERE [condition] TO [x, y]
 GET POSITION FOR ALL REGIMENTS WHERE [condition]
-GET SIZE OF ALL REGIMENTS WHERE [condition]
-GET AMOUNT OF [unitType] IN ALL REGIMENTS WHERE [condition]
+GET SIZE FOR ALL REGIMENTS WHERE [condition]
+GET AMOUNT FOR [unitType] IN ALL REGIMENTS WHERE [condition]
 
 * condition (adderade med 'AND') 
 	- CONTAINS [unitType]
