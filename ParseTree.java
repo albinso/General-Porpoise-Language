@@ -22,7 +22,9 @@ public class ParseTree {
 	}
 
 	private void startNewStatement() {
-
+		// TODO
+		// - create Node
+		// - add Node?s
 	}
 
 	/***
@@ -60,4 +62,7 @@ public class ParseTree {
 		System.out.println("Syntaxfel på rad " + t.getRow());
 		System.exit(0);
 	}
-}
+
+	public String toString() {
+		// TODO
+	} 
