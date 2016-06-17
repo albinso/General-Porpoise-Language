@@ -20,6 +20,9 @@ public class ParseTree {
 		createParseTree();
 	}
 
+	/**
+	 * Create manage all the statements given by the token-list
+	 **/
 	private void createParseTree() {
 		if (tokens.size() == 0) {
 			System.exit(0); // no tokens in list
@@ -31,9 +34,9 @@ public class ParseTree {
 	}
 
 	/**
-	 *	// TODO
-	 *	// - create Node
-	 *	// - add Node?s
+	 * TODO
+	 * - create Node
+	 * - add Node?
 	 */
 	private void startNewStatement() {
 		Token newCommandToken = tokens.remove(0);
@@ -45,6 +48,7 @@ public class ParseTree {
 
 		removeSpaces(1);
 
+		// decides which type of command that is being started
 		switch (newCommandToken.getTokenType()) {
 			case CREATE:
 				handleCreateStatement();
@@ -82,6 +86,8 @@ public class ParseTree {
 	}
 
 	/**
+	 * Creates an AddNode containing unit-name and regiment-name
+	 * 
 	 * TODO
 	 * extract '[unitname]', 'TO' and '[regname]'
 	 **/
