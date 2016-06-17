@@ -1,3 +1,8 @@
+/**
+ * - can we subsitute TokenType in Nodes?
+ * - want to put "lastCodeToken" in the "getToken"-method
+ **/
+
 import java.util.ArrayList;
 
 public class ParseTree {
@@ -5,8 +10,12 @@ public class ParseTree {
 	private ParseNode current; // private because it's only used to create the tree
 	private ArrayList<Token> tokens;
 
+	private Token lastCodeToken;
+
 	public ParseTree(ArrayList<Token> tokens) {
 		this.tokens = tokens;
+
+		lastCodeToken = null;
 
 		createParseTree();
 	}
@@ -29,7 +38,12 @@ public class ParseTree {
 	private void startNewStatement() {
 		Token newCommandToken = tokens.remove(0);
 
-		removeSpaces(newCommandToken);
+		// if current commandToken should be considerd
+		if (isCodeToken(newCommandToken)) {
+			lastCodeToken = newCommandToken;
+		}
+
+		removeSpaces(1);
 
 		switch (newCommandToken.getTokenType()) {
 			case CREATE:
@@ -45,12 +59,20 @@ public class ParseTree {
 				handleTransferStatement();
 				break;
 			case MOVE:
-				handleMoveStatement()
+				handleMoveStatement();
 				break;
 			case GET:
 				handleGetStatement();
 				break;
 		}
+
+		// optional spaces after last command before dot
+		// at least one space after dot before next command
+		removeSpaces(0);
+
+		getToken(TokenType.DOT);
+
+		removeSpaces(1);
 	}
 
 	private void handleCreateStatement() {
@@ -59,10 +81,24 @@ public class ParseTree {
 		// - UNIT (Gunman, Sniper, Artillery, Medic, Tank)
 	}
 
+	/**
+	 * TODO
+	 * extract '[unitname]', 'TO' and '[regname]'
+	 **/
 	private void handleAddStatement() {
-		Token unitNameToken = tokens.remove(0);
-		// TODO
-		// - add [unitname] TO [regname]
+		Token unitNameToken = getToken(TokenType.TEXT);
+
+		removeSpaces(1);
+
+		Token toToken = getToken(TokenType.TO);
+
+		removeSpaces(1);
+
+		Token regimentNameToken = getToken(TokenType.TEXT);
+
+		// get the unit from the unit-name
+		// get the regiment from the regiment-name
+		// create addNode
 	}
 
 	private void handleRemoveStatement() {
@@ -93,7 +129,7 @@ public class ParseTree {
 	 * If there is no more tokens or the next token is of the wrong type it calls 
 	 *  the 'printError'-method
 	 ***/
-	private Token getToken(TokenType expectedTokenType, Token lastCodeToken) {
+	private Token getToken(TokenType expectedTokenType) {
 		if (tokens.size() == 0) {
 			printError(lastCodeToken);
 		}
@@ -104,16 +140,34 @@ public class ParseTree {
 			printError(token);
 		}
 
+		if (isCodeToken(token)) {
+			lastCodeToken = token;
+		}
+
 		return token;
+	}
+
+	/**
+	 * If the given token should be counted as 'code' or something else
+	 **/
+	public boolean isCodeToken(Token token) {
+		if (token.getTokenType() == TokenType.SPACE) {
+			return false;
+		}
+
+		return true;
 	}
 
 	/**
 	 * Remove spaces between commands, must be at least one
 	 */
-	private void removeSpaces(Token lastCodeToken) {
-		getToken(TokenType.SPACE, lastCodeToken); // it needs to be at least one space
+	private void removeSpaces(int minimumSpaces) {
+		// the amount of spaces it needs to be
+		for (int i = 0 ; i < minimumSpaces ; i++) {
+			getToken(TokenType.SPACE);
+		}
 
-		// removes the other spaces
+		// removes the other spaces (optional spaces)
 		while (tokens.size() != 0 && tokens.get(0).getTokenType() == TokenType.SPACE) {
 			tokens.remove(0);
 		}
@@ -129,5 +183,6 @@ public class ParseTree {
 
 	public String toString() {
 		// TODO
+		return "";
 	} 
 }
