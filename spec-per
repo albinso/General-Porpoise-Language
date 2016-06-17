@@ -1,10 +1,4 @@
-* Skapa regementen (på bestämd form, typ Reg#1?)
-* Flytta regementen (efter reg-namn, flytta enbart i fyra/åtta-riktningar?)
-* Fyll på/plocka bort trupper ur regementen
-* Flytta trupper mellan regementen
-
-* Querys över units?
-
+* Every statement need to end with a dot and a space (space or line break)
 
 Leonardo-example
 ------------------
