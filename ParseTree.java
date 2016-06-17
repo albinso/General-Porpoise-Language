@@ -21,10 +21,70 @@ public class ParseTree {
 		}
 	}
 
+	/**
+	 *	// TODO
+	 *	// - create Node
+	 *	// - add Node?s
+	 */
 	private void startNewStatement() {
+		Token newCommandToken = tokens.remove(0);
+
+		removeSpaces(newCommandToken);
+
+		switch (newCommandToken.getTokenType()) {
+			case CREATE:
+				handleCreateStatement();
+				break;
+			case ADD:
+				handleAddStatement();
+				break;
+			case REMOVE:
+				handleRemoveStatement();
+				break;
+			case TRANSFER:
+				handleTransferStatement();
+				break;
+			case MOVE:
+				handleMoveStatement()
+				break;
+			case GET:
+				handleGetStatement();
+				break;
+		}
+	}
+
+	private void handleCreateStatement() {
 		// TODO
-		// - create Node
-		// - add Node?s
+		// - REGIMENT
+		// - UNIT (Gunman, Sniper, Artillery, Medic, Tank)
+	}
+
+	private void handleAddStatement() {
+		// TODO
+		// - add [unitname] TO [regname]
+	}
+
+	private void handleRemoveStatement() {
+		// TODO
+		// - remove (by name or by index)
+	}
+
+	private void handleTransferStatement() {
+		// TODO
+		// TRANSFER [unitName] FROM [regname1] TO [regname2]
+	}
+
+	private void handleMoveStatement() {
+		// TODO
+		// MOVE [regname] [y] STEPS [NORTH/SOUTH] AND [x] STEPS [EAST/WEST]
+		// MOVE [regname] TO [x, y]
+		// MOVE ALL REGIMENTS WHERE [condition] TO [x, y]
+	}
+
+	private void handleGetStatement() {
+		// GET POSITION FOR [regname]
+		// GET SIZE OF [regname]
+		// GET AMOUNT OF [unitType] IN [regname]
 	}
 
 	/***
@@ -47,9 +107,12 @@ public class ParseTree {
 	}
 
 	/**
-	 * Remove spaces between commands
+	 * Remove spaces between commands, must be at least one
 	 */
-	private void removeSpace() {
+	private void removeSpaces(Token lastCodeToken) {
+		getToken(TokenType.SPACE, lastCodeToken); // it needs to be at least one space
+
+		// removes the other spaces
 		while (tokens.size() != 0 && tokens.get(0).getTokenType() == TokenType.SPACE) {
 			tokens.remove(0);
 		}
@@ -58,7 +121,7 @@ public class ParseTree {
 	/**
 	 * If error occurs
 	 */
-	public void printError(Token t) {
+	private void printError(Token t) {
 		System.out.println("Syntaxfel på rad " + t.getRow());
 		System.exit(0);
 	}
@@ -66,3 +129,4 @@ public class ParseTree {
 	public String toString() {
 		// TODO
 	} 
+}

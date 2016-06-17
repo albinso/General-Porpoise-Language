@@ -8,7 +8,7 @@
 
 Leonardo-example
 ------------------
-CREATE [regname] AT [x, y]
+CREATE REGIMENT [regname] AT [x, y]
 CREATE GUNMAN [unitName]
 -||-   SNIPER -||-
 -||-   ARTILLERY -||-
