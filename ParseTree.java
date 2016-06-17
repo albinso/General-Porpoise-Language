@@ -60,6 +60,7 @@ public class ParseTree {
 	}
 
 	private void handleAddStatement() {
+		Token unitNameToken = tokens.remove(0);
 		// TODO
 		// - add [unitname] TO [regname]
 	}
