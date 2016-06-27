@@ -1,7 +1,6 @@
 public enum TokenType {
 	CREATE("CREATE"), ADD("ADD"), REMOVE("REMOVE"), TRANSFER("TRANSFER"), MOVE("MOVE"), GET("GET"),
-	TO("TO"), DOT("\\."),
-	TEXT(""), SPACE("(%.*\\n?|\\s)+"), INVALID(".");
+	TO("TO"), NUMBER("\\d+"), DOT("\\."), EXCL("!"), QUEST("\\?"), SPACE("(%.*\\n?|\\s)+"), TEXT("\\w+");
 
 	private String pattern;
 
